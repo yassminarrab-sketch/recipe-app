@@ -1,24 +1,20 @@
 import React,{useState,} from "react";
 
-export default function recipeForm(){
-    const [nom, setNom] = useState('');
-    const [categorie, setCategorie] = useState('Plat');
-    const [ingredients, setIngredients] = useState(['']); 
-    const [difficulte, setDifficulte] = useState(3);
-    const [description, setDescription] = useState('');
-    const [image, setImage] = useState(''); 
+export default function recipeForm(showModal,setShowModal,idEdit,nom,setNom,categorie,setCategorie,ingredients,changeIngredient,addIngredientInput,removeIngredientInput,difficulte,setDifficulte,description,setDescription,image,setImage,handleSubmit){
+
+    if(!showModal) return null;
+    
 
     return (
     <div>
-      <div >
+      
         <div>
-          <h2>{currentRecipe ? "Modifier la recette" : "Nouvelle recette"}</h2>
-          <button onClick={}>Fermer</button>
+          <h2>{idEdit ? "Modifier la recette":"Nouvelle recette"}</h2>
         </div>
 
         <form onSubmit={handleSubmit} >
           <label>Nom</label>
-          <input type="text" value={nom} onChange={(e) => setNom(e.target.value)}/>
+          <input  value={nom} onChange={(e) => setNom(e.target.value)}/>
 
           <label>Catégorie</label>
           <select value={categorie} onChange={(e) => setCategorie(e.target.value)} >
@@ -28,6 +24,36 @@ export default function recipeForm(){
             <option value="Boisson">Boisson</option>
           </select>
 
+          <label>Ingrédients :</label>
+          {ingredients.map((ing, index) => (
+            <div>
+                <input
+                type="text"
+                value={ing}
+                onChange={(e) => changeIngredient(index, e.target.value)}
+                />
+                <button type="button" onClick={(index) => removeIngredientInput(index)}>X</button>
+            
+            </div>))}
+            <button type="button" onClick={addIngredientInput}>+ Ajouter ingrédient</button>
+
+            <label>Difficulté (1 à 5) :</label>
+            <input type="number" value={difficulte} onChange={(e) => setDifficulte(e.target.value)} />
+             
+            <label>Description :</label>
+            <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+
+            <label>Image URL :</label>
+            <input value={image} onChange={(e) => setImage(e.target.value)} />
+
+
+            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+            <button type="submit" >Enregistrer</button>
+            <button type="button" onClick={() => setShowModal(false)} >Annuler</button>
+          </div>
+    
           
         </form>
+    </div>
+    )
 }

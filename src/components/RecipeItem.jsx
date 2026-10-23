@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function RecipeItem({recipe,}){
+export default function RecipeItem({recipe,onDelete,onDuplicate,onEdit}){
 
 
     return(
@@ -9,7 +9,7 @@ export default function RecipeItem({recipe,}){
             <div>
 
                 <h3>{recipe.nom}</h3>
-                <span>{recipe.categorie}</span>
+                <span>categorie:{recipe.categorie}</span>
 
             </div>
 
@@ -17,7 +17,7 @@ export default function RecipeItem({recipe,}){
 
             <div>
 
-                {recipe.ingredients.map((ing,index)=>(
+                ingredient: {recipe.ingredients.map((ing,index)=>(
                     <span key={index}>{ing}</span>
                 ))}
             </div>
@@ -29,9 +29,9 @@ export default function RecipeItem({recipe,}){
 
             <div>
 
-                <button onClick={} >modifier</button>
-                <button onClick={} >dupliquer</button>
-                <button onClick={} >supprimer</button>
+                <button onClick={()=>onEdit(recipe)} >modifier</button>
+                <button onClick={()=>onDuplicate(recipe)} >dupliquer</button>
+                <button onClick={()=>onDelete(recipe.id)} >supprimer</button>
             </div>
         </div>
     )
